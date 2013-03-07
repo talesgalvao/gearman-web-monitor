@@ -1,0 +1,20 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="#">Gearman</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <?php $menu_actived = (isset($menu_actived)) ? $menu_actived : ""; ?>
+          <li class="<?php echo ($menu_actived == "Server Status") ? "active" : "" ?>"><a href="/monitor/status/serverStatus">Server Status</a></li>
+          <li class="<?php echo ($menu_actived == "Workers") ? "active" : "" ?>"><a href="#about">Workers</a></li>
+          <li class="<?php echo ($menu_actived == "Settings") ? "active" : "" ?>"><a href="/monitor/setup">Settings</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

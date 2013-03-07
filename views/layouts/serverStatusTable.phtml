@@ -1,0 +1,8 @@
+<?php foreach ($status as $functionName => $functionStatus){ ?>
+	<tr>	
+		<td><?php echo $functionName ?></td>
+		<td><?php echo $functionStatus['in_queue'] ?></td>
+		<td><?php echo $functionStatus['capable_workers'] ?></td>
+		<td><?php echo $functionStatus['jobs_running'] ?></td>
+	</tr>
+<?php } ?>

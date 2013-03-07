@@ -1,0 +1,36 @@
+<?php $this->layout('head'); ?>
+<?php $this->layout('header', array('menu_actived' => 'Settings')); ?>
+
+<div id="container">
+	<form class="form-signin" action="setup/saveSetup" method="POST">
+		<h2 class="form-signin-heading">Settings</h2>
+		<label>Server address:</label>
+		<input type="text" class="input-medium" placeholder="127.0.0.1" name="address" value="<?php echo (isset($_SESSION['settings']['address']) && !empty($_SESSION['settings']['address'])) ? $_SESSION['settings']['address'] : "127.0.0.1" ?>">
+		<label>Port:</label>
+		<input type="text" class="input-mini" placeholder="4730" name="port" value="<?php echo (isset($_SESSION['settings']['port']) && !empty($_SESSION['settings']['port'])) ? $_SESSION['settings']['port'] : "4730" ?>">
+
+		<label class="checkbox">
+		  <input type="checkbox" id="auto-refresh" value="1" name="auto-refresh" <?php echo (isset($_SESSION['settings']['auto_refresh']) && !empty($_SESSION['settings']['auto_refresh'])) ? "checked" : "" ?>> Atualização automatica:
+		</label>
+
+		<div class="control-group <?php echo (!isset($_SESSION['settings']['auto_refresh']) || empty($_SESSION['settings']['auto_refresh'])) ? "display-none" : "" ?>" id="auto-refresh-time">
+			<input type="text" class="input-mini" placeholder="1" name="auto-refresh-time" value="<?php echo (isset($_SESSION['settings']['auto_refresh_time']) && !empty($_SESSION['settings']['auto_refresh_time'])) ? $_SESSION['settings']['auto_refresh_time'] : "1" ?>">
+			<span class="help-block">Time to refresh in seconds.</span>
+		</div>
+
+		<button class="btn btn-primary btn-small" type="submit">Save</button>
+	</form>
+</div>
+
+<?php $this->layout('scripts'); ?>
+<script type="text/javascript">
+	$('#auto-refresh').change(function(){
+		if($('#auto-refresh').is(':checked'))
+		{
+			$('#auto-refresh-time').slideDown();
+		}else{
+			$('#auto-refresh-time').slideUp();
+		}
+	});
+</script>
+<?php $this->layout('footer'); ?>

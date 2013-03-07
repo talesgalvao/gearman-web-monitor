@@ -1,0 +1,6 @@
+* { font-size: 15px; font-family: Arial; border: none; }
+body {  }
+
+#container { margin: auto; padding-top: 45px; position: relative; width: 960px; }
+.display-none{ display: none; }
+.loading { width: 50px; }

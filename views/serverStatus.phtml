@@ -1,0 +1,62 @@
+<?php $this->layout('head'); ?>
+<?php $this->layout('header', array('menu_actived' => 'Server Status')); ?>
+
+<div id="container">
+	<table id="status-table" class="table table-bordered table-hover">
+		<thead>
+			<th>Function</th>
+			<th>Queue</th>
+			<th>Workers</th>
+			<th>Jobs Runing</th>
+		</thead>
+		<tbody>
+			<?php $this->layout('serverStatusTable', array('status' => $status)); ?>
+		</tbody>
+	</table>
+
+
+<?php $this->layout('scripts'); ?>
+<script type="text/javascript">
+	function loadPage(){
+		$("#status-table tbody").fadeOut( function(){
+			$("#status-table tbody").html("<tr align='right'><td align='right' colspan='4'><center><img class='loading' src='/monitor/public/images/loading.gif'></center></td></tr>");
+			$("#status-table tbody").fadeIn(function(){
+				loadContent();
+				$("#status-table tbody").fadeOut( function(){
+					$("#status-table tbody").html(data);
+					$("#status-table tbody").fadeIn();
+				});
+			});
+		});
+	}
+
+	function refreshPage(){
+		loadContent();
+		$("#status-table tbody").html(data);
+	}
+
+	function loadContent(){
+		$.ajax({
+			url: "/monitor/status/ajaxServerStatus"
+		}).done(function(data) {
+			window.data = data;
+			return true;
+		});
+	}
+
+	$('document').ready(function(){
+		$("#refresh-button").click(function(){
+			loadPage();
+		});
+	});
+</script>
+	<?php if(!isset($_SESSION['settings']['auto_refresh']) || empty($_SESSION['settings']['auto_refresh'])){ ?>
+		<blockquote class="pull-right">
+			<button class="btn btn-small btn-primary" id="refresh-button" type="button">Refresh</button>
+		</blockquote>			
+	<?php }else{ ?>
+		<script type="text/javascript">
+			window.setInterval(function(){refreshPage()}, <?php echo $timer ?>);
+		</script>
+	<?php } ?>
+<?php $this->layout('footer'); ?>
